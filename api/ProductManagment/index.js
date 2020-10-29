@@ -1,5 +1,8 @@
 const product = require('../../models/product');
 module.exports = {
+    /***
+     *  List all products
+     * **/
     list : async(req, res) => {
         try {
             const data = await product.find({isDeleted: 0}).exec();
@@ -8,6 +11,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  List products by product id
+     * **/
     listById: async(req, res) => {
         try {
             const {id} = req.params;
@@ -17,6 +23,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  Create new product
+     * **/
     create : async(req, res) => {
         try {
             const data = await product.create(req.body);
@@ -25,6 +34,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  Update product by product id
+     * **/
     update: async(req, res) => {
         try {
             const {id} = req.params;
@@ -37,6 +49,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  Delete product by product id 
+     * **/
     delete: async(req, res) => {
         try {
             const {id} = req.params;

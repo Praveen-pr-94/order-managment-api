@@ -1,6 +1,9 @@
 const e = require('express');
 const users = require('../../models/users');
 module.exports = {
+    /***
+     *  List all users
+     * **/
     list : async(req, res) => {
         try {
             const data = await users.find({isDeleted: 0}).exec();
@@ -9,6 +12,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  List users by id
+     * **/
     listById: async(req, res) => {
         try {
             const {id} = req.params;
@@ -18,6 +24,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  Create new user
+     * **/
     create : async(req, res) => {
         try {
             const data = await users.create(req.body);
@@ -26,6 +35,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  Update user by user id
+     * **/
     update: async(req, res) => {
         try {
             const {id} = req.params;
@@ -39,6 +51,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /****
+     *  Delete user by user id
+     * **/
     delete: async(req, res) => {
         try {
             const {id} = req.params;

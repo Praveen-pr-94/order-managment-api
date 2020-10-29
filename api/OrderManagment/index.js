@@ -1,6 +1,9 @@
 const order = require('../../models/order');
 const moment = require('moment');
 module.exports = {
+    /***
+     *  List all orders
+     * **/
     list : async(req, res) => {
         try {
             const data = await order.find({isDeleted: 0}).populate('user product').exec();
@@ -9,6 +12,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  List order by order id
+     * **/
     listById: async(req, res) => {
         try {
             const {id} = req.params;
@@ -18,6 +24,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  Create new order
+     * **/
     create : async(req, res) => {
         try {
             const data = await order.create(req.body);
@@ -26,6 +35,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  Update order by order id
+     * **/
     update: async(req, res) => {
         try {
             const {id} = req.params;
@@ -40,6 +52,9 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  Delete order by order id, update isDelete field 1
+     * **/
     delete: async(req, res) => {
         try {
             const {id} = req.params;
@@ -51,6 +66,10 @@ module.exports = {
             return res.send({status: false, message: 'internal server error'})
         }
     },
+    /***
+     *  Search orders by filter , 
+     *  pagination by queryparams,
+     * **/
     search : async(req, res) => {
         try {
             const pageOptions = {
@@ -69,7 +88,11 @@ module.exports = {
     },
 }
 
- function searchByDate(search) {
+/***
+ *  Search orders , checking the filter lastWeek or today
+ *  momentjs for date conversion   
+ * **/
+function searchByDate(search) {
     let condition = {};
     let today;
     switch(search){
